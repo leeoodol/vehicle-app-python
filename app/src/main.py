@@ -27,7 +27,7 @@ from velocitas_sdk.util.log import (  # type: ignore
 from velocitas_sdk.vdb.reply import DataPointReply
 from velocitas_sdk.vehicle_app import VehicleApp, subscribe_topic
 
-# Configure the VehicleApp logger with the necessary log config and level.
+# Configure the VehicleApp logger with the necessary log config  and level.
 logging.setLogRecordFactory(get_opentelemetry_log_factory())
 logging.basicConfig(format=get_opentelemetry_log_format())
 logging.getLogger().setLevel("DEBUG")
