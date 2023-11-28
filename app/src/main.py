@@ -18,7 +18,6 @@ import asyncio
 import json
 import logging
 import signal
-
 from vehicle import Vehicle, vehicle  # type: ignore
 from velocitas_sdk.util.log import (  # type: ignore
     get_opentelemetry_log_factory,
@@ -26,6 +25,10 @@ from velocitas_sdk.util.log import (  # type: ignore
 )
 from velocitas_sdk.vdb.reply import DataPointReply
 from velocitas_sdk.vehicle_app import VehicleApp, subscribe_topic
+
+import pandas as pd
+import torch
+import torch.nn as nn
 
 # Configure the VehicleApp logger with the necessary log config  and level.
 logging.setLogRecordFactory(get_opentelemetry_log_factory())
@@ -36,7 +39,6 @@ logger = logging.getLogger(__name__)
 GET_SPEED_REQUEST_TOPIC = "sampleapp/getSpeed"
 GET_SPEED_RESPONSE_TOPIC = "sampleapp/getSpeed/response"
 DATABROKER_SUBSCRIPTION_TOPIC = "sampleapp/currentSpeed"
-
 
 class SampleApp(VehicleApp):
     """
@@ -57,6 +59,7 @@ class SampleApp(VehicleApp):
         # SampleApp inherits from VehicleApp.
         super().__init__()
         self.Vehicle = vehicle_client
+        print(1)
 
     async def on_start(self):
         """Run when the vehicle app starts"""
@@ -114,6 +117,18 @@ class SampleApp(VehicleApp):
 
 
 async def main():
+    print(1)
+    csv_path = 'carla_data_test.csv'
+    data = {
+        "field": ["current"],
+        "signal": [
+            "Vehicle.Speed"
+        ],
+        "value": [0],
+        "delay": [0]
+    }
+    DATA = pd.DataFrame(data)
+    print(DATA)
     """Main function"""
     logger.info("Starting SampleApp...")
     # Constructing SampleApp and running it.
